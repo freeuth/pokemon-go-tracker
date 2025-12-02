@@ -39,7 +39,11 @@ class Settings(BaseSettings):
     YOUTUBE_RSS_FEEDS: str = ""
 
     # CORS
-    ALLOWED_ORIGINS: list = ["http://localhost:3000", "http://127.0.0.1:3000"]
+    ALLOWED_ORIGINS: list = [
+        "http://localhost:3000",
+        "http://127.0.0.1:3000",
+        "https://pokemon-go-tracker.vercel.app"
+    ]
 
     class Config:
         env_file = ".env"

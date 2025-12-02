@@ -1,0 +1,46 @@
+services:
+  # Backend API Service
+  - type: web
+    name: pokemon-go-tracker-backend
+    env: python
+    region: oregon
+    plan: free
+    branch: main
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: MODE
+        value: production
+      - key: DATABASE_URL
+        value: sqlite:///./pokemon_go.db
+      - key: SMTP_HOST
+        value: smtp.gmail.com
+      - key: SMTP_PORT
+        value: 587
+      - key: SMTP_USER
+        sync: false
+      - key: SMTP_PASSWORD
+        sync: false
+      - key: EMAIL_FROM
+        sync: false
+      - key: NOTIFICATION_EMAIL
+        sync: false
+      - key: REDIS_URL
+        value: redis://localhost:6379/0
+      - key: API_HOST
+        value: 0.0.0.0
+      - key: API_PORT
+        value: 8000
+      - key: DEBUG
+        value: true
+      - key: FRONTEND_URL
+        value: https://pokemon-go-tracker.vercel.app
+      - key: CRAWLER_INTERVAL_MINUTES
+        value: 30
+      - key: POKEMONGO_NEWS_URL
+        value: https://pokemongolive.com/ko/post/
+      - key: YOUTUBE_RSS_FEEDS
+        sync: false
+      - key: ALLOWED_ORIGINS
+        value: '["https://pokemon-go-tracker.vercel.app", "http://localhost:3000"]'
