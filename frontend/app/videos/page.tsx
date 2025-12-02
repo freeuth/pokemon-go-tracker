@@ -61,8 +61,8 @@ export default function VideosPage() {
 
     // 날짜순 정렬
     result.sort((a, b) => {
-      const dateA = a.published_date ? new Date(a.published_date).getTime() : 0;
-      const dateB = b.published_date ? new Date(b.published_date).getTime() : 0;
+      const dateA = a.published_at ? new Date(a.published_at).getTime() : 0;
+      const dateB = b.published_at ? new Date(b.published_at).getTime() : 0;
       return sortOrder === 'newest' ? dateB - dateA : dateA - dateB;
     });
 
