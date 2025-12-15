@@ -33,9 +33,16 @@ async def get_events(
     limit: int = 20,
     db: Session = Depends(get_db)
 ):
-    """Get all Pokemon GO events"""
-    events = db.query(Event).order_by(desc(Event.published_date)).offset(skip).limit(limit).all()
-    return events
+    """Get all Pokemon GO events (ordered to show latest news first from recent crawl)"""
+    # Get latest 60 events (most recent crawl batch) in ID ascending order
+    # This gives us the chronologically correct order (latest news first)
+    events = db.query(Event).order_by(desc(Event.id)).limit(60).all()
+    # No need to reverse - desc(id) already gives us latest at end,
+    # but within the crawl batch, lower ID = newer news
+    # So we reverse to get lower IDs first
+    events = list(reversed(events))
+    # Apply pagination
+    return events[skip:skip+limit]
 
 
 @router.get("/{event_id}", response_model=EventResponse)

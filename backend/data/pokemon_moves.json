@@ -1,0 +1,1037 @@
+[
+  {
+    "pokemon_id": 1,
+    "move_id": "vine_whip",
+    "category": "fast"
+  },
+  {
+    "pokemon_id": 1,
+    "move_id": "solar_beam",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 1,
+    "move_id": "seed_bomb",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 2,
+    "move_id": "vine_whip",
+    "category": "fast"
+  },
+  {
+    "pokemon_id": 2,
+    "move_id": "razor_leaf",
+    "category": "fast"
+  },
+  {
+    "pokemon_id": 2,
+    "move_id": "solar_beam",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 2,
+    "move_id": "seed_bomb",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 3,
+    "move_id": "vine_whip",
+    "category": "fast"
+  },
+  {
+    "pokemon_id": 3,
+    "move_id": "razor_leaf",
+    "category": "fast"
+  },
+  {
+    "pokemon_id": 3,
+    "move_id": "solar_beam",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 3,
+    "move_id": "frenzy_plant",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 3,
+    "move_id": "seed_bomb",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 4,
+    "move_id": "ember",
+    "category": "fast"
+  },
+  {
+    "pokemon_id": 4,
+    "move_id": "flamethrower",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 5,
+    "move_id": "ember",
+    "category": "fast"
+  },
+  {
+    "pokemon_id": 5,
+    "move_id": "fire_spin",
+    "category": "fast"
+  },
+  {
+    "pokemon_id": 5,
+    "move_id": "flamethrower",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 6,
+    "move_id": "fire_spin",
+    "category": "fast"
+  },
+  {
+    "pokemon_id": 6,
+    "move_id": "air_slash",
+    "category": "fast"
+  },
+  {
+    "pokemon_id": 6,
+    "move_id": "blast_burn",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 6,
+    "move_id": "overheat",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 6,
+    "move_id": "dragon_claw",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 7,
+    "move_id": "water_gun",
+    "category": "fast"
+  },
+  {
+    "pokemon_id": 7,
+    "move_id": "bubble",
+    "category": "fast"
+  },
+  {
+    "pokemon_id": 7,
+    "move_id": "surf",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 8,
+    "move_id": "water_gun",
+    "category": "fast"
+  },
+  {
+    "pokemon_id": 8,
+    "move_id": "surf",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 9,
+    "move_id": "water_gun",
+    "category": "fast"
+  },
+  {
+    "pokemon_id": 9,
+    "move_id": "hydro_cannon",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 9,
+    "move_id": "hydro_pump",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 9,
+    "move_id": "flash_cannon",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 25,
+    "move_id": "thunder_shock",
+    "category": "fast"
+  },
+  {
+    "pokemon_id": 25,
+    "move_id": "thunderbolt",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 25,
+    "move_id": "wild_charge",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 26,
+    "move_id": "thunder_shock",
+    "category": "fast"
+  },
+  {
+    "pokemon_id": 26,
+    "move_id": "spark",
+    "category": "fast"
+  },
+  {
+    "pokemon_id": 26,
+    "move_id": "thunder",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 26,
+    "move_id": "wild_charge",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 94,
+    "move_id": "shadow_claw",
+    "category": "fast"
+  },
+  {
+    "pokemon_id": 94,
+    "move_id": "lick",
+    "category": "fast"
+  },
+  {
+    "pokemon_id": 94,
+    "move_id": "shadow_ball",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 94,
+    "move_id": "shadow_punch",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 149,
+    "move_id": "dragon_tail",
+    "category": "fast"
+  },
+  {
+    "pokemon_id": 149,
+    "move_id": "dragon_breath",
+    "category": "fast"
+  },
+  {
+    "pokemon_id": 149,
+    "move_id": "outrage",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 149,
+    "move_id": "draco_meteor",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 149,
+    "move_id": "dragon_claw",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 149,
+    "move_id": "hurricane",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 150,
+    "move_id": "psycho_cut",
+    "category": "fast"
+  },
+  {
+    "pokemon_id": 150,
+    "move_id": "confusion",
+    "category": "fast"
+  },
+  {
+    "pokemon_id": 150,
+    "move_id": "psystrike",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 150,
+    "move_id": "psychic",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 150,
+    "move_id": "shadow_ball",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 384,
+    "move_id": "dragon_tail",
+    "category": "fast"
+  },
+  {
+    "pokemon_id": 384,
+    "move_id": "air_slash",
+    "category": "fast"
+  },
+  {
+    "pokemon_id": 384,
+    "move_id": "outrage",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 384,
+    "move_id": "hurricane",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 384,
+    "move_id": "ancient_power",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 448,
+    "move_id": "counter",
+    "category": "fast"
+  },
+  {
+    "pokemon_id": 448,
+    "move_id": "bullet_punch",
+    "category": "fast"
+  },
+  {
+    "pokemon_id": 448,
+    "move_id": "aura_sphere",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 448,
+    "move_id": "close_combat",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 448,
+    "move_id": "shadow_ball",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 376,
+    "move_id": "bullet_punch",
+    "category": "fast"
+  },
+  {
+    "pokemon_id": 376,
+    "move_id": "meteor_mash",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 376,
+    "move_id": "psychic",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 376,
+    "move_id": "earthquake",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 131,
+    "move_id": "water_gun",
+    "category": "fast"
+  },
+  {
+    "pokemon_id": 131,
+    "move_id": "hydro_pump",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 131,
+    "move_id": "surf",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 143,
+    "move_id": "lick",
+    "category": "fast"
+  },
+  {
+    "pokemon_id": 143,
+    "move_id": "earthquake",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 144,
+    "move_id": "air_slash",
+    "category": "fast"
+  },
+  {
+    "pokemon_id": 144,
+    "move_id": "hurricane",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 144,
+    "move_id": "ancient_power",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 145,
+    "move_id": "thunder_shock",
+    "category": "fast"
+  },
+  {
+    "pokemon_id": 145,
+    "move_id": "thunder",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 145,
+    "move_id": "thunderbolt",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 146,
+    "move_id": "fire_spin",
+    "category": "fast"
+  },
+  {
+    "pokemon_id": 146,
+    "move_id": "overheat",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 151,
+    "move_id": "shadow_claw",
+    "category": "fast"
+  },
+  {
+    "pokemon_id": 151,
+    "move_id": "psychic",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 151,
+    "move_id": "dragon_claw",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 152,
+    "move_id": "vine_whip",
+    "category": "fast"
+  },
+  {
+    "pokemon_id": 152,
+    "move_id": "seed_bomb",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 155,
+    "move_id": "ember",
+    "category": "fast"
+  },
+  {
+    "pokemon_id": 155,
+    "move_id": "flamethrower",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 158,
+    "move_id": "water_gun",
+    "category": "fast"
+  },
+  {
+    "pokemon_id": 158,
+    "move_id": "surf",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 243,
+    "move_id": "thunder_shock",
+    "category": "fast"
+  },
+  {
+    "pokemon_id": 243,
+    "move_id": "spark",
+    "category": "fast"
+  },
+  {
+    "pokemon_id": 243,
+    "move_id": "wild_charge",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 243,
+    "move_id": "thunder",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 244,
+    "move_id": "fire_spin",
+    "category": "fast"
+  },
+  {
+    "pokemon_id": 244,
+    "move_id": "overheat",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 244,
+    "move_id": "flamethrower",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 245,
+    "move_id": "water_gun",
+    "category": "fast"
+  },
+  {
+    "pokemon_id": 245,
+    "move_id": "hydro_pump",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 245,
+    "move_id": "surf",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 248,
+    "move_id": "dragon_tail",
+    "category": "fast"
+  },
+  {
+    "pokemon_id": 248,
+    "move_id": "rock_slide",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 248,
+    "move_id": "earthquake",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 249,
+    "move_id": "dragon_tail",
+    "category": "fast"
+  },
+  {
+    "pokemon_id": 249,
+    "move_id": "psycho_cut",
+    "category": "fast"
+  },
+  {
+    "pokemon_id": 249,
+    "move_id": "hurricane",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 249,
+    "move_id": "psychic",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 250,
+    "move_id": "fire_spin",
+    "category": "fast"
+  },
+  {
+    "pokemon_id": 250,
+    "move_id": "air_slash",
+    "category": "fast"
+  },
+  {
+    "pokemon_id": 250,
+    "move_id": "brave_bird",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 250,
+    "move_id": "overheat",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 252,
+    "move_id": "vine_whip",
+    "category": "fast"
+  },
+  {
+    "pokemon_id": 252,
+    "move_id": "seed_bomb",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 255,
+    "move_id": "ember",
+    "category": "fast"
+  },
+  {
+    "pokemon_id": 255,
+    "move_id": "flamethrower",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 258,
+    "move_id": "water_gun",
+    "category": "fast"
+  },
+  {
+    "pokemon_id": 258,
+    "move_id": "surf",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 373,
+    "move_id": "dragon_tail",
+    "category": "fast"
+  },
+  {
+    "pokemon_id": 373,
+    "move_id": "dragon_breath",
+    "category": "fast"
+  },
+  {
+    "pokemon_id": 373,
+    "move_id": "outrage",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 373,
+    "move_id": "draco_meteor",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 377,
+    "move_id": "rock_slide",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 377,
+    "move_id": "earthquake",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 378,
+    "move_id": "rock_slide",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 379,
+    "move_id": "metal_claw",
+    "category": "fast"
+  },
+  {
+    "pokemon_id": 379,
+    "move_id": "flash_cannon",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 380,
+    "move_id": "dragon_breath",
+    "category": "fast"
+  },
+  {
+    "pokemon_id": 380,
+    "move_id": "psychic",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 380,
+    "move_id": "outrage",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 381,
+    "move_id": "dragon_breath",
+    "category": "fast"
+  },
+  {
+    "pokemon_id": 381,
+    "move_id": "psychic",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 381,
+    "move_id": "dragon_claw",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 382,
+    "move_id": "water_gun",
+    "category": "fast"
+  },
+  {
+    "pokemon_id": 382,
+    "move_id": "hydro_pump",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 382,
+    "move_id": "surf",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 383,
+    "move_id": "dragon_tail",
+    "category": "fast"
+  },
+  {
+    "pokemon_id": 383,
+    "move_id": "earthquake",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 383,
+    "move_id": "rock_slide",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 387,
+    "move_id": "vine_whip",
+    "category": "fast"
+  },
+  {
+    "pokemon_id": 387,
+    "move_id": "seed_bomb",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 390,
+    "move_id": "ember",
+    "category": "fast"
+  },
+  {
+    "pokemon_id": 390,
+    "move_id": "flamethrower",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 393,
+    "move_id": "bubble",
+    "category": "fast"
+  },
+  {
+    "pokemon_id": 393,
+    "move_id": "surf",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 445,
+    "move_id": "dragon_tail",
+    "category": "fast"
+  },
+  {
+    "pokemon_id": 445,
+    "move_id": "outrage",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 445,
+    "move_id": "earthquake",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 480,
+    "move_id": "confusion",
+    "category": "fast"
+  },
+  {
+    "pokemon_id": 480,
+    "move_id": "psychic",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 481,
+    "move_id": "confusion",
+    "category": "fast"
+  },
+  {
+    "pokemon_id": 481,
+    "move_id": "psychic",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 482,
+    "move_id": "confusion",
+    "category": "fast"
+  },
+  {
+    "pokemon_id": 482,
+    "move_id": "psychic",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 483,
+    "move_id": "dragon_tail",
+    "category": "fast"
+  },
+  {
+    "pokemon_id": 483,
+    "move_id": "dragon_breath",
+    "category": "fast"
+  },
+  {
+    "pokemon_id": 483,
+    "move_id": "draco_meteor",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 483,
+    "move_id": "flash_cannon",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 484,
+    "move_id": "dragon_tail",
+    "category": "fast"
+  },
+  {
+    "pokemon_id": 484,
+    "move_id": "dragon_breath",
+    "category": "fast"
+  },
+  {
+    "pokemon_id": 484,
+    "move_id": "hydro_pump",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 484,
+    "move_id": "draco_meteor",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 487,
+    "move_id": "dragon_tail",
+    "category": "fast"
+  },
+  {
+    "pokemon_id": 487,
+    "move_id": "shadow_claw",
+    "category": "fast"
+  },
+  {
+    "pokemon_id": 487,
+    "move_id": "dragon_claw",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 487,
+    "move_id": "shadow_ball",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 494,
+    "move_id": "confusion",
+    "category": "fast"
+  },
+  {
+    "pokemon_id": 494,
+    "move_id": "psychic",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 494,
+    "move_id": "overheat",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 643,
+    "move_id": "fire_spin",
+    "category": "fast"
+  },
+  {
+    "pokemon_id": 643,
+    "move_id": "dragon_breath",
+    "category": "fast"
+  },
+  {
+    "pokemon_id": 643,
+    "move_id": "overheat",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 643,
+    "move_id": "draco_meteor",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 644,
+    "move_id": "dragon_breath",
+    "category": "fast"
+  },
+  {
+    "pokemon_id": 644,
+    "move_id": "wild_charge",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 644,
+    "move_id": "outrage",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 645,
+    "move_id": "dragon_tail",
+    "category": "fast"
+  },
+  {
+    "pokemon_id": 645,
+    "move_id": "earthquake",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 645,
+    "move_id": "rock_slide",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 646,
+    "move_id": "dragon_tail",
+    "category": "fast"
+  },
+  {
+    "pokemon_id": 646,
+    "move_id": "dragon_breath",
+    "category": "fast"
+  },
+  {
+    "pokemon_id": 646,
+    "move_id": "draco_meteor",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 646,
+    "move_id": "outrage",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 716,
+    "move_id": "charm",
+    "category": "fast"
+  },
+  {
+    "pokemon_id": 716,
+    "move_id": "moonblast",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 716,
+    "move_id": "dazzling_gleam",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 717,
+    "move_id": "air_slash",
+    "category": "fast"
+  },
+  {
+    "pokemon_id": 717,
+    "move_id": "hurricane",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 717,
+    "move_id": "psychic",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 718,
+    "move_id": "dragon_tail",
+    "category": "fast"
+  },
+  {
+    "pokemon_id": 718,
+    "move_id": "outrage",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 718,
+    "move_id": "earthquake",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 785,
+    "move_id": "spark",
+    "category": "fast"
+  },
+  {
+    "pokemon_id": 785,
+    "move_id": "thunder",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 785,
+    "move_id": "dazzling_gleam",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 791,
+    "move_id": "psycho_cut",
+    "category": "fast"
+  },
+  {
+    "pokemon_id": 791,
+    "move_id": "psychic",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 791,
+    "move_id": "flash_cannon",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 792,
+    "move_id": "confusion",
+    "category": "fast"
+  },
+  {
+    "pokemon_id": 792,
+    "move_id": "psychic",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 792,
+    "move_id": "shadow_ball",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 888,
+    "move_id": "metal_claw",
+    "category": "fast"
+  },
+  {
+    "pokemon_id": 888,
+    "move_id": "charm",
+    "category": "fast"
+  },
+  {
+    "pokemon_id": 888,
+    "move_id": "moonblast",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 888,
+    "move_id": "flash_cannon",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 889,
+    "move_id": "metal_claw",
+    "category": "fast"
+  },
+  {
+    "pokemon_id": 889,
+    "move_id": "counter",
+    "category": "fast"
+  },
+  {
+    "pokemon_id": 889,
+    "move_id": "close_combat",
+    "category": "charged"
+  },
+  {
+    "pokemon_id": 889,
+    "move_id": "flash_cannon",
+    "category": "charged"
+  }
+]

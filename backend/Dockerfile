@@ -25,4 +25,4 @@ RUN mkdir -p uploads
 EXPOSE 8000
 
 # Run the application
-CMD ["python", "run.py"]
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]

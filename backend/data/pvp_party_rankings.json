@@ -1,0 +1,370 @@
+[
+  {
+    "league": "Great",
+    "season_id": "2025_season1",
+    "rankings": [
+      {
+        "rank": 1,
+        "team": [
+          {
+            "pokemon_id": 448,
+            "pokemon_name_ko": "루카리오",
+            "fast_move_id": "counter",
+            "charged_move_id": "aura_sphere"
+          },
+          {
+            "pokemon_id": 94,
+            "pokemon_name_ko": "팬텀",
+            "fast_move_id": "shadow_ball",
+            "charged_move_id": "shadow_ball"
+          },
+          {
+            "pokemon_id": 6,
+            "pokemon_name_ko": "리자몽",
+            "fast_move_id": "air_slash",
+            "charged_move_id": "dragon_claw"
+          }
+        ],
+        "estimated_rating": 2650,
+        "notes_ko": "메타 커버 우수, ABB 밸런스 완벽. 루카리오 리드로 압박, 팬텀과 리자몽으로 스위치 플레이"
+      },
+      {
+        "rank": 2,
+        "team": [
+          {
+            "pokemon_id": 94,
+            "pokemon_name_ko": "팬텀",
+            "fast_move_id": "shadow_ball",
+            "charged_move_id": "shadow_ball"
+          },
+          {
+            "pokemon_id": 448,
+            "pokemon_name_ko": "루카리오",
+            "fast_move_id": "counter",
+            "charged_move_id": "shadow_ball"
+          },
+          {
+            "pokemon_id": 149,
+            "pokemon_name_ko": "망나뇽",
+            "fast_move_id": "dragon_tail",
+            "charged_move_id": "hurricane"
+          }
+        ],
+        "estimated_rating": 2580,
+        "notes_ko": "팬텀 리드로 에너지 우위 확보. 루카리오 세이프 스위치, 망나뇽 클로저"
+      },
+      {
+        "rank": 3,
+        "team": [
+          {
+            "pokemon_id": 448,
+            "pokemon_name_ko": "루카리오",
+            "fast_move_id": "counter",
+            "charged_move_id": "aura_sphere"
+          },
+          {
+            "pokemon_id": 6,
+            "pokemon_name_ko": "리자몽",
+            "fast_move_id": "air_slash",
+            "charged_move_id": "fire_blast"
+          },
+          {
+            "pokemon_id": 149,
+            "pokemon_name_ko": "망나뇽",
+            "fast_move_id": "dragon_tail",
+            "charged_move_id": "outrage"
+          }
+        ],
+        "estimated_rating": 2520,
+        "notes_ko": "드래곤 백라인 조합. 루카리오 리드, 리자몽 스위치, 망나뇽 마무리"
+      },
+      {
+        "rank": 4,
+        "team": [
+          {
+            "pokemon_id": 94,
+            "pokemon_name_ko": "팬텀",
+            "fast_move_id": "shadow_ball",
+            "charged_move_id": "shadow_ball"
+          },
+          {
+            "pokemon_id": 149,
+            "pokemon_name_ko": "망나뇽",
+            "fast_move_id": "dragon_tail",
+            "charged_move_id": "hurricane"
+          },
+          {
+            "pokemon_id": 6,
+            "pokemon_name_ko": "리자몽",
+            "fast_move_id": "air_slash",
+            "charged_move_id": "dragon_claw"
+          }
+        ],
+        "estimated_rating": 2480,
+        "notes_ko": "팬텀 중심 ABB 라인. 비행 타입 백라인으로 풀 타입 메타 카운터"
+      },
+      {
+        "rank": 5,
+        "team": [
+          {
+            "pokemon_id": 448,
+            "pokemon_name_ko": "루카리오",
+            "fast_move_id": "counter",
+            "charged_move_id": "aura_sphere"
+          },
+          {
+            "pokemon_id": 94,
+            "pokemon_name_ko": "팬텀",
+            "fast_move_id": "shadow_ball",
+            "charged_move_id": "shadow_ball"
+          },
+          {
+            "pokemon_id": 149,
+            "pokemon_name_ko": "망나뇽",
+            "fast_move_id": "dragon_tail",
+            "charged_move_id": "outrage"
+          }
+        ],
+        "estimated_rating": 2450,
+        "notes_ko": "만능형 밸런스 팀. 모든 메타에 대응 가능한 안정적 구성"
+      },
+      {
+        "rank": 6,
+        "team": [
+          {
+            "pokemon_id": 6,
+            "pokemon_name_ko": "리자몽",
+            "fast_move_id": "air_slash",
+            "charged_move_id": "dragon_claw"
+          },
+          {
+            "pokemon_id": 448,
+            "pokemon_name_ko": "루카리오",
+            "fast_move_id": "counter",
+            "charged_move_id": "shadow_ball"
+          },
+          {
+            "pokemon_id": 94,
+            "pokemon_name_ko": "팬텀",
+            "fast_move_id": "shadow_ball",
+            "charged_move_id": "shadow_ball"
+          }
+        ],
+        "estimated_rating": 2420,
+        "notes_ko": "리자몽 리드 변형. 비행 타입으로 풀/격투 메타 대응"
+      },
+      {
+        "rank": 7,
+        "team": [
+          {
+            "pokemon_id": 149,
+            "pokemon_name_ko": "망나뇽",
+            "fast_move_id": "dragon_tail",
+            "charged_move_id": "hurricane"
+          },
+          {
+            "pokemon_id": 448,
+            "pokemon_name_ko": "루카리오",
+            "fast_move_id": "counter",
+            "charged_move_id": "aura_sphere"
+          },
+          {
+            "pokemon_id": 94,
+            "pokemon_name_ko": "팬텀",
+            "fast_move_id": "shadow_ball",
+            "charged_move_id": "shadow_ball"
+          }
+        ],
+        "estimated_rating": 2390,
+        "notes_ko": "망나뇽 리드 실험적 구성. 에너지 축적 후 백라인 압박"
+      },
+      {
+        "rank": 8,
+        "team": [
+          {
+            "pokemon_id": 94,
+            "pokemon_name_ko": "팬텀",
+            "fast_move_id": "shadow_ball",
+            "charged_move_id": "shadow_ball"
+          },
+          {
+            "pokemon_id": 6,
+            "pokemon_name_ko": "리자몽",
+            "fast_move_id": "air_slash",
+            "charged_move_id": "fire_blast"
+          },
+          {
+            "pokemon_id": 448,
+            "pokemon_name_ko": "루카리오",
+            "fast_move_id": "counter",
+            "charged_move_id": "aura_sphere"
+          }
+        ],
+        "estimated_rating": 2360,
+        "notes_ko": "팬텀 + 불/격투 하이브리드. 강철 타입 메타 카운터"
+      },
+      {
+        "rank": 9,
+        "team": [
+          {
+            "pokemon_id": 448,
+            "pokemon_name_ko": "루카리오",
+            "fast_move_id": "counter",
+            "charged_move_id": "aura_sphere"
+          },
+          {
+            "pokemon_id": 149,
+            "pokemon_name_ko": "망나뇽",
+            "fast_move_id": "dragon_tail",
+            "charged_move_id": "outrage"
+          },
+          {
+            "pokemon_id": 94,
+            "pokemon_name_ko": "팬텀",
+            "fast_move_id": "shadow_ball",
+            "charged_move_id": "shadow_ball"
+          }
+        ],
+        "estimated_rating": 2330,
+        "notes_ko": "루카리오 리드 + 드래곤/고스트 백라인. 안정성 우선"
+      },
+      {
+        "rank": 10,
+        "team": [
+          {
+            "pokemon_id": 6,
+            "pokemon_name_ko": "리자몽",
+            "fast_move_id": "air_slash",
+            "charged_move_id": "dragon_claw"
+          },
+          {
+            "pokemon_id": 94,
+            "pokemon_name_ko": "팬텀",
+            "fast_move_id": "shadow_ball",
+            "charged_move_id": "shadow_ball"
+          },
+          {
+            "pokemon_id": 149,
+            "pokemon_name_ko": "망나뇽",
+            "fast_move_id": "dragon_tail",
+            "charged_move_id": "hurricane"
+          }
+        ],
+        "estimated_rating": 2300,
+        "notes_ko": "비행 타입 중심 구성. 풀/벌레 타입 메타 완벽 대응"
+      }
+    ]
+  },
+  {
+    "league": "Ultra",
+    "season_id": "2025_season1",
+    "rankings": [
+      {
+        "rank": 1,
+        "team": [
+          {
+            "pokemon_id": 150,
+            "pokemon_name_ko": "뮤츠",
+            "fast_move_id": "psychic",
+            "charged_move_id": "shadow_ball"
+          },
+          {
+            "pokemon_id": 445,
+            "pokemon_name_ko": "한카리아스",
+            "fast_move_id": "mud_shot",
+            "charged_move_id": "earthquake"
+          },
+          {
+            "pokemon_id": 448,
+            "pokemon_name_ko": "루카리오",
+            "fast_move_id": "counter",
+            "charged_move_id": "aura_sphere"
+          }
+        ],
+        "estimated_rating": 2800,
+        "notes_ko": "하이퍼리그 최강 조합. 뮤츠 리드로 압도적 딜량, 한카리아스 + 루카리오 백라인"
+      },
+      {
+        "rank": 2,
+        "team": [
+          {
+            "pokemon_id": 445,
+            "pokemon_name_ko": "한카리아스",
+            "fast_move_id": "dragon_tail",
+            "charged_move_id": "outrage"
+          },
+          {
+            "pokemon_id": 150,
+            "pokemon_name_ko": "뮤츠",
+            "fast_move_id": "psychic",
+            "charged_move_id": "psychic"
+          },
+          {
+            "pokemon_id": 448,
+            "pokemon_name_ko": "루카리오",
+            "fast_move_id": "counter",
+            "charged_move_id": "shadow_ball"
+          }
+        ],
+        "estimated_rating": 2720,
+        "notes_ko": "한카리아스 리드 변형. 드래곤 타입으로 에너지 우위"
+      }
+    ]
+  },
+  {
+    "league": "Master",
+    "season_id": "2025_season1",
+    "rankings": [
+      {
+        "rank": 1,
+        "team": [
+          {
+            "pokemon_id": 384,
+            "pokemon_name_ko": "레쿠쟈",
+            "fast_move_id": "dragon_tail",
+            "charged_move_id": "outrage"
+          },
+          {
+            "pokemon_id": 383,
+            "pokemon_name_ko": "그라돈",
+            "fast_move_id": "mud_shot",
+            "charged_move_id": "precipice_blades"
+          },
+          {
+            "pokemon_id": 150,
+            "pokemon_name_ko": "뮤츠",
+            "fast_move_id": "psychic",
+            "charged_move_id": "shadow_ball"
+          }
+        ],
+        "estimated_rating": 3100,
+        "notes_ko": "마스터리그 절대강자 조합. 레쿠쟈 리드, 그라돈 + 뮤츠 백라인으로 모든 메타 제압"
+      },
+      {
+        "rank": 2,
+        "team": [
+          {
+            "pokemon_id": 383,
+            "pokemon_name_ko": "그라돈",
+            "fast_move_id": "mud_shot",
+            "charged_move_id": "precipice_blades"
+          },
+          {
+            "pokemon_id": 384,
+            "pokemon_name_ko": "레쿠쟈",
+            "fast_move_id": "dragon_tail",
+            "charged_move_id": "outrage"
+          },
+          {
+            "pokemon_id": 382,
+            "pokemon_name_ko": "가이오가",
+            "fast_move_id": "waterfall",
+            "charged_move_id": "origin_pulse"
+          }
+        ],
+        "estimated_rating": 3050,
+        "notes_ko": "그라돈 리드 날씨 트리오. 땅/드래곤/물 완벽 커버"
+      }
+    ]
+  }
+]

@@ -1,0 +1,86 @@
+[
+  {
+    "boss_pokemon_id": 384,
+    "season_id": "2025_season1",
+    "recommended_teams": [
+      {
+        "name_ko": "얼음 타입 카운터 팀",
+        "description_ko": "레쿠쟈의 드래곤/비행 타입에 강한 얼음 타입 중심 파티",
+        "members": [
+          {
+            "pokemon_id": 445,
+            "pokemon_name_ko": "한카리아스",
+            "fast_move_id": "mud_shot",
+            "charged_move_id": "outrage",
+            "role_ko": "드래곤 딜러"
+          },
+          {
+            "pokemon_id": 149,
+            "pokemon_name_ko": "망나뇽",
+            "fast_move_id": "dragon_tail",
+            "charged_move_id": "outrage",
+            "role_ko": "드래곤 딜러"
+          },
+          {
+            "pokemon_id": 373,
+            "pokemon_name_ko": "보만다",
+            "fast_move_id": "dragon_tail",
+            "charged_move_id": "outrage",
+            "role_ko": "드래곤 딜러"
+          }
+        ]
+      },
+      {
+        "name_ko": "드래곤 타입 딜러 팀",
+        "description_ko": "드래곤 기술로 빠른 딜링",
+        "members": [
+          {
+            "pokemon_id": 445,
+            "pokemon_name_ko": "한카리아스",
+            "fast_move_id": "dragon_tail",
+            "charged_move_id": "outrage",
+            "role_ko": "메인 딜러"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "boss_pokemon_id": 383,
+    "season_id": "2025_season1",
+    "recommended_teams": [
+      {
+        "name_ko": "물/풀/얼음 타입 팀",
+        "description_ko": "그라돈의 땅 타입 약점 공략",
+        "members": [
+          {
+            "pokemon_id": 382,
+            "pokemon_name_ko": "가이오가",
+            "fast_move_id": "waterfall",
+            "charged_move_id": "origin_pulse",
+            "role_ko": "물 타입 최강 딜러"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "boss_pokemon_id": 382,
+    "season_id": "2025_season1",
+    "recommended_teams": [
+      {
+        "name_ko": "전기/풀 타입 팀",
+        "description_ko": "가이오가의 물 타입 약점 공략",
+        "members": [
+          {
+            "pokemon_id": 384,
+            "pokemon_name_ko": "레쿠쟈",
+            "fast_move_id": "dragon_tail",
+            "charged_move_id": "outrage",
+            "role_ko": "드래곤 딜러"
+          }
+        ]
+      }
+    ]
+  }
+]

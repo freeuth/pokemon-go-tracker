@@ -21,7 +21,7 @@ class PokemonGOCrawler:
     async def fetch_events(self) -> List[Dict]:
         """
         Fetch latest Pokemon GO events from official website
-        포켓몬GO 공식 한국 사이트에서 최신 뉴스를 크롤링
+        포켓몬GO 공식 한국 사이트(pokemongo.com/ko/news)에서 최신 뉴스를 크롤링
         """
         try:
             async with httpx.AsyncClient(follow_redirects=True, timeout=30.0) as client:
@@ -32,138 +32,72 @@ class PokemonGOCrawler:
                 soup = BeautifulSoup(response.text, 'html.parser')
                 events = []
 
-                # 포켓몬GO 공식 사이트의 실제 구조에 맞춰 파싱
-                # pokemongolive.com/ko/post/ 페이지 구조를 파싱
+                # pokemongo.com/ko/news 페이지 구조에 맞춰 파싱
+                # 구조: <a href="/ko/news/[slug]"><img src="...">제목 텍스트</a>
 
-                # 1. 방법 1: article 태그 찾기
-                article_items = soup.find_all('article', limit=15)
+                # /ko/news/로 시작하는 모든 링크 찾기
+                link_items = soup.find_all('a', href=re.compile(r'^/ko/news/[^/]+$'))
 
-                if not article_items:
-                    # 2. 방법 2: 특정 클래스명으로 찾기
-                    article_items = soup.select('.post, .article, .news-item, .blog-post', limit=15)
+                if link_items:
+                    logger.info(f"Found {len(link_items)} news links from pokemongo.com")
 
-                if not article_items:
-                    # 3. 방법 3: a 태그에서 /post/ 링크 찾기
-                    link_items = soup.find_all('a', href=re.compile(r'/ko/post/[^/]+/?$'), limit=15)
-                    if link_items:
-                        logger.info(f"Found {len(link_items)} news links")
-                        for link in link_items:
-                            try:
-                                # 제목 추출
-                                title = link.get_text(strip=True)
-                                if not title or len(title) < 5:
-                                    # 링크 내부의 제목 요소 찾기
-                                    title_elem = link.find(['h1', 'h2', 'h3', 'h4', 'span', 'div'])
-                                    title = title_elem.get_text(strip=True) if title_elem else ''
-
-                                if not title or len(title) < 5:
-                                    continue
-
-                                # URL 추출
-                                url = self._make_absolute_url(link.get('href', ''))
-
-                                # 썸네일 이미지 찾기 (링크 안 또는 부모 요소에서)
-                                img_elem = link.find('img')
-                                if not img_elem and link.parent:
-                                    img_elem = link.parent.find('img')
-
-                                thumbnail_url = None
-                                if img_elem:
-                                    thumbnail_url = img_elem.get('src') or img_elem.get('data-src')
-                                    if thumbnail_url:
-                                        thumbnail_url = self._make_absolute_url(thumbnail_url)
-
-                                # 요약 추출 (부모 요소에서 p 태그 찾기)
-                                summary = ''
-                                if link.parent:
-                                    summary_elem = link.parent.find('p')
-                                    if summary_elem:
-                                        summary = summary_elem.get_text(strip=True)[:200]
-
-                                event = {
-                                    'title': title,
-                                    'url': url,
-                                    'summary': summary,
-                                    'published_date': datetime.now(),  # 날짜는 상세 페이지에서 가져오거나 현재 시간 사용
-                                    'image_url': thumbnail_url,
-                                    'category': '뉴스'
-                                }
-                                events.append(event)
-
-                            except Exception as e:
-                                logger.error(f"Error parsing link item: {str(e)}")
-                                continue
-                else:
-                    logger.info(f"Found {len(article_items)} article items")
-                    for item in article_items:
+                    for link in link_items:
                         try:
-                            # 제목 추출
-                            title_elem = item.find(['h1', 'h2', 'h3', 'h4'])
-                            if not title_elem:
+                            # URL 추출
+                            href = link.get('href', '')
+                            if not href:
                                 continue
 
-                            title = title_elem.get_text(strip=True)
+                            # 절대 URL로 변환
+                            url = f"https://pokemongo.com{href}"
 
-                            # 링크 추출
-                            link_elem = item.find('a', href=re.compile(r'/ko/post/'))
-                            if not link_elem:
-                                link_elem = title_elem.find_parent('a')
-                            if not link_elem:
+                            # 제목 추출 - 링크의 텍스트에서 가져오기
+                            title = link.get_text(strip=True)
+
+                            # 제목이 없거나 너무 짧으면 스킵
+                            if not title or len(title) < 5:
                                 continue
 
-                            url = self._make_absolute_url(link_elem.get('href', ''))
-
-                            # 썸네일 이미지 추출
-                            img_elem = item.find('img')
+                            # 썸네일 이미지 찾기
+                            img_elem = link.find('img')
                             thumbnail_url = None
                             if img_elem:
-                                thumbnail_url = img_elem.get('src') or img_elem.get('data-src')
-                                if thumbnail_url:
-                                    thumbnail_url = self._make_absolute_url(thumbnail_url)
-
-                            # 요약 추출
-                            summary_elem = item.find('p')
-                            summary = summary_elem.get_text(strip=True)[:200] if summary_elem else ''
-
-                            # 날짜 추출
-                            date_elem = item.find('time')
-                            published_date = datetime.now()
-                            if date_elem:
-                                date_str = date_elem.get('datetime') or date_elem.get_text(strip=True)
-                                published_date = self._parse_date(date_str)
+                                thumbnail_url = img_elem.get('src', '')
+                                # Googleusercontent URL 처리
+                                if thumbnail_url and not thumbnail_url.startswith('http'):
+                                    if thumbnail_url.startswith('//'):
+                                        thumbnail_url = f'https:{thumbnail_url}'
+                                    else:
+                                        thumbnail_url = f'https://pokemongo.com{thumbnail_url}'
 
                             event = {
                                 'title': title,
                                 'url': url,
-                                'summary': summary,
-                                'published_date': published_date,
+                                'summary': '',  # pokemongo.com은 요약을 제공하지 않음
+                                'published_date': datetime.now(),
                                 'image_url': thumbnail_url,
                                 'category': '뉴스'
                             }
                             events.append(event)
 
                         except Exception as e:
-                            logger.error(f"Error parsing article item: {str(e)}")
+                            logger.error(f"Error parsing link item: {str(e)}")
                             continue
 
-                # URL 유효성 검증 (404 체크는 너무 느리므로 기본 검증만)
-                validated_events = []
-                for event in events:
-                    if self._validate_event(event):
-                        validated_events.append(event)
+                    if events:
+                        logger.info(f"Successfully crawled {len(events)} events from pokemongo.com")
+                        return events
                     else:
-                        logger.warning(f"Invalid event filtered out: {event.get('title', 'Unknown')}")
-
-                if validated_events:
-                    logger.info(f"Successfully crawled {len(validated_events)} valid events")
-                    return validated_events
+                        logger.warning("No valid events parsed from pokemongo.com")
+                        return []
                 else:
-                    logger.warning("No valid events found, using mock data")
-                    return self._get_mock_events()
+                    logger.warning("No news links found on pokemongo.com/ko/news")
+                    return []
 
         except Exception as e:
-            logger.error(f"Failed to fetch events: {str(e)}")
-            return self._get_mock_events()
+            logger.error(f"Failed to fetch events from pokemongo.com: {str(e)}")
+            logger.error(f"Error traceback: {e.__class__.__name__}")
+            return []
 
     def _validate_event(self, event: Dict) -> bool:
         """이벤트 데이터 유효성 검증"""
@@ -175,7 +109,7 @@ class PokemonGOCrawler:
             return False
 
         # URL이 포켓몬GO 공식 사이트인지 확인
-        if 'pokemongolive.com' not in event['url']:
+        if 'pokemongo.com' not in event['url']:
             return False
 
         return True
@@ -194,10 +128,10 @@ class PokemonGOCrawler:
 
         # / 로 시작하는 상대 경로
         if url.startswith('/'):
-            return f"https://pokemongolive.com{url}"
+            return f"https://pokemongo.com{url}"
 
         # 그 외
-        return f"https://pokemongolive.com/{url}"
+        return f"https://pokemongo.com/{url}"
 
     def _parse_date(self, date_str: str) -> datetime:
         """Parse date string to datetime object"""

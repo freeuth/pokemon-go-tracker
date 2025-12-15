@@ -9,12 +9,16 @@ class Settings(BaseSettings):
     # Database
     DATABASE_URL: str = "postgresql://postgres:password@localhost:5432/pokemon_go_db"
 
-    # Gmail SMTP
+    # SendGrid Email (Render 클라우드 서버용)
+    SENDGRID_API_KEY: str = ""
+    EMAIL_FROM: str = "noreply@pokemongo-tracker.com"
+    TO_EMAIL: str = "treehi1@gmail.com"
+
+    # Gmail SMTP (Deprecated - 기존 코드 호환성 유지)
     SMTP_HOST: str = "smtp.gmail.com"
     SMTP_PORT: int = 587
     SMTP_USER: str = ""
     SMTP_PASSWORD: str = ""
-    EMAIL_FROM: str = ""
     NOTIFICATION_EMAIL: str = ""
 
     # Redis

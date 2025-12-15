@@ -1,6 +1,8 @@
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from apscheduler.triggers.interval import IntervalTrigger
 from apscheduler.triggers.cron import CronTrigger
+from typing import Dict
+from datetime import datetime
 from app.core.config import settings
 from app.core.database import SessionLocal
 from app.services.crawler_service import crawler
@@ -10,33 +12,46 @@ from app.models.event import Event
 from app.models.youtube_video import YouTubeVideo
 from app.models.email_subscription import EmailSubscription
 import logging
+import traceback
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-scheduler = AsyncIOScheduler(timezone='Asia/Seoul')
+# Render 클라우드 서버에서 안정적으로 동작하도록 설정
+scheduler = AsyncIOScheduler(
+    timezone='Asia/Seoul',
+    job_defaults={
+        'coalesce': True,  # 누락된 실행을 하나로 합침
+        'max_instances': 1,  # 동시 실행 방지
+        'misfire_grace_time': 300  # 5분 지연까지 허용
+    }
+)
 
 
 async def scheduled_crawl_job():
     """
     Scheduled job to crawl Pokemon GO events
     매일 10:00 (Asia/Seoul) 실행 - 새 뉴스가 있을 때만 이메일 발송
+    Render 클라우드 서버에서 자동 실행
     """
-    logger.info("Starting scheduled event crawl...")
+    logger.info("=" * 80)
+    logger.info(f"🕐 [SCHEDULER] Scheduled crawl job started at {datetime.now()}")
+    logger.info("=" * 80)
+
     db = SessionLocal()
-    new_events = []  # 새로 추가된 이벤트 목록
+    new_events = []
 
     try:
-        # Fetch events from Pokemon GO website
+        # 1. 크롤링
+        logger.info("📡 Fetching events from Pokemon GO website...")
         events = await crawler.fetch_events()
-        new_events_count = 0
+        logger.info(f"✅ Found {len(events)} total events from website")
 
+        # 2. 신규 이벤트 확인 및 저장
         for event_data in events:
-            # Check if event already exists
             existing_event = db.query(Event).filter(Event.url == event_data['url']).first()
 
             if not existing_event:
-                # Create new event
                 new_event = Event(
                     title=event_data['title'],
                     url=event_data['url'],
@@ -47,41 +62,41 @@ async def scheduled_crawl_job():
                     is_notified=False
                 )
                 db.add(new_event)
-                db.commit()
-                db.refresh(new_event)
+                new_events.append(event_data)
+                logger.info(f"🆕 New event: {event_data['title'][:50]}...")
 
-                logger.info(f"New event found: {event_data['title']}")
-                new_events.append(event_data)  # 새 이벤트를 리스트에 추가
-                new_events_count += 1
+        db.commit()
 
-        # 새 뉴스가 하나라도 있을 때만 이메일 발송
+        # 3. 이메일 발송 (신규 이벤트가 있을 때만)
         if new_events:
-            logger.info(f"Found {new_events_count} new events. Sending email notification...")
+            logger.info(f"📧 {len(new_events)} new events found. Sending email...")
+            email_sent = email_service.send_daily_news_summary(new_events, None)
 
-            # 이메일 발송 - treehi1@gmail.com으로 고정
-            recipient_email = 'treehi1@gmail.com'
-
-            # 새로운 이벤트들을 이메일로 발송
-            email_service.send_daily_news_summary(new_events, [recipient_email])
-
-            # Mark all new events as notified
-            for event_data in new_events:
-                event = db.query(Event).filter(Event.url == event_data['url']).first()
-                if event:
-                    event.is_notified = True
-
-            db.commit()
-            logger.info(f"Email sent successfully to {recipient_email}")
+            if email_sent:
+                # 이메일 발송 성공 시 is_notified 업데이트
+                for event_data in new_events:
+                    event = db.query(Event).filter(Event.url == event_data['url']).first()
+                    if event:
+                        event.is_notified = True
+                db.commit()
+                logger.info(f"✅ Email sent successfully for {len(new_events)} events")
+            else:
+                logger.error("❌ Email sending failed")
         else:
-            logger.info("No new events found. No email sent.")
+            logger.info("📭 No new events. No email sent.")
 
-        logger.info(f"Crawl completed. Found {new_events_count} new events.")
+        logger.info(f"✅ Scheduled crawl completed successfully")
 
     except Exception as e:
-        logger.error(f"Error during scheduled crawl: {str(e)}")
+        logger.error(f"❌ ERROR in scheduled_crawl_job:")
+        logger.error(f"   Error type: {type(e).__name__}")
+        logger.error(f"   Error message: {str(e)}")
+        logger.error(f"   Traceback:\n{traceback.format_exc()}")
         db.rollback()
+
     finally:
         db.close()
+        logger.info("=" * 80)
 
 
 async def scheduled_youtube_crawl_job():
@@ -150,6 +165,9 @@ def start_scheduler():
     Initialize and start the scheduler
     - 뉴스 크롤링: 매일 10:00 (Asia/Seoul)
     - YouTube 영상 크롤링: 매일 10:00 (Asia/Seoul) - 최근 2주일 영상만, 3개월 지난 영상 자동 삭제
+
+    Render 클라우드 서버에서 자동으로 실행됩니다.
+    초기 크롤링은 수행하지 않으며, 스케줄에 따라서만 실행됩니다.
     """
     # Schedule the event crawl job to run daily at 10:00 AM (Asia/Seoul)
     scheduler.add_job(
@@ -170,21 +188,49 @@ def start_scheduler():
     )
 
     scheduler.start()
-    logger.info(f"Scheduler started.")
-    logger.info(f"  - Pokemon GO news: Daily at 10:00 AM (Asia/Seoul)")
-    logger.info(f"  - YouTube videos: Daily at 10:00 AM (Asia/Seoul) - 2 weeks recent, 3 months auto-delete")
-
-    # Run initial crawl immediately on startup
-    import asyncio
-    loop = asyncio.new_event_loop()
-    asyncio.set_event_loop(loop)
-    loop.run_until_complete(scheduled_crawl_job())
-    loop.run_until_complete(scheduled_youtube_crawl_job())
-    loop.close()
-    logger.info("Initial data load completed.")
+    logger.info(f"✅ Scheduler started successfully")
+    logger.info(f"📅 Pokemon GO news: Daily at 10:00 AM (Asia/Seoul)")
+    logger.info(f"🎬 YouTube videos: Daily at 10:00 AM (Asia/Seoul)")
+    logger.info(f"💡 Use POST /api/admin/crawl-now for manual testing")
 
 
 def stop_scheduler():
     """Stop the scheduler"""
     scheduler.shutdown()
     logger.info("Scheduler stopped.")
+
+
+def get_scheduler_status() -> Dict:
+    """
+    스케줄러 상태 확인
+    Render 클라우드 서버에서 스케줄러가 정상 실행 중인지 확인하는 API용
+    """
+    try:
+        is_running = scheduler.running
+        jobs = scheduler.get_jobs()
+
+        jobs_info = []
+        for job in jobs:
+            next_run = job.next_run_time
+            jobs_info.append({
+                "id": job.id,
+                "name": job.name,
+                "next_run_time": next_run.isoformat() if next_run else None,
+                "trigger": str(job.trigger)
+            })
+
+        return {
+            "running": is_running,
+            "timezone": str(scheduler.timezone),
+            "jobs_count": len(jobs),
+            "jobs": jobs_info,
+            "timestamp": datetime.now().isoformat()
+        }
+
+    except Exception as e:
+        logger.error(f"❌ Error getting scheduler status: {str(e)}")
+        return {
+            "running": False,
+            "error": str(e),
+            "timestamp": datetime.now().isoformat()
+        }

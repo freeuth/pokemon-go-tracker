@@ -1,8 +1,7 @@
-import smtplib
 import logging
-from email.mime.text import MIMEText
-from email.mime.multipart import MIMEMultipart
 from typing import List
+from sendgrid import SendGridAPIClient
+from sendgrid.helpers.mail import Mail, Email, To, Content
 from app.core.config import settings
 
 logger = logging.getLogger(__name__)
@@ -10,33 +9,42 @@ logger = logging.getLogger(__name__)
 
 class EmailService:
     """
-    Gmail SMTP를 사용한 이메일 서비스
+    SendGrid를 사용한 이메일 서비스 (Render 클라우드 서버 기반)
     """
 
     def __init__(self):
-        self.smtp_host = settings.SMTP_HOST
-        self.smtp_port = settings.SMTP_PORT
-        self.smtp_user = settings.SMTP_USER
-        self.smtp_password = settings.SMTP_PASSWORD
-        self.from_email = settings.EMAIL_FROM
+        self.api_key = settings.SENDGRID_API_KEY
+        self.from_email = settings.EMAIL_FROM or "noreply@pokemongo-tracker.com"
+        self.to_email = settings.TO_EMAIL or "treehi1@gmail.com"
 
-    def send_daily_news_summary(self, events: List[dict], recipients: List[str]):
+        if not self.api_key:
+            logger.warning("⚠️ SENDGRID_API_KEY not configured. Email sending will fail.")
+        else:
+            logger.info(f"✅ SendGrid email service initialized. Target: {self.to_email}")
+
+    def send_daily_news_summary(self, events: List[dict], recipients: List[str] = None):
         """
         Send daily news summary email with all new events
         매일 오전 10시에 새 뉴스가 있을 때만 발송
+        SendGrid API를 사용하여 Render 클라우드 서버에서 안정적으로 발송
         """
         if not events:
-            logger.info("No new events to send")
+            logger.info("📭 No new events to send")
             return False
 
+        # recipients가 지정되지 않으면 기본값 사용
         if recipients is None or len(recipients) == 0:
-            logger.warning("No recipients specified")
+            recipients = [self.to_email]
+            logger.info(f"📧 Using default recipient: {self.to_email}")
+
+        if not self.api_key:
+            logger.error("❌ SENDGRID_API_KEY not configured. Cannot send email.")
             return False
 
         from datetime import datetime
         today = datetime.now().strftime('%Y년 %m월 %d일')
 
-        subject = f"[포켓몬GO] {today} 신규 뉴스 요약 ({len(events)}건)"
+        subject = f"[포켓몬고] 오늘 신규 이벤트 알림"
 
         # 이벤트 목록을 HTML로 변환
         events_html = ""
@@ -142,35 +150,45 @@ class EmailService:
         """
 
         try:
+            # SendGrid API 클라이언트 생성
+            sg = SendGridAPIClient(self.api_key)
+
             for recipient in recipients:
                 # MODE가 test일 때는 실제로 발송하지 않고 로그만 출력
                 if settings.MODE == 'test':
                     logger.info(f"[TEST MODE] Would send email to {recipient}")
                     logger.info(f"Subject: {subject}")
                     logger.info(f"Events count: {len(events)}")
+                    for event in events:
+                        logger.info(f"  - {event['title']}")
                 else:
-                    # Gmail SMTP로 실제 발송
-                    msg = MIMEMultipart('alternative')
-                    msg['Subject'] = subject
-                    msg['From'] = self.from_email
-                    msg['To'] = recipient
+                    # SendGrid로 실제 발송
+                    message = Mail(
+                        from_email=Email(self.from_email),
+                        to_emails=To(recipient),
+                        subject=subject,
+                        html_content=Content("text/html", html_content)
+                    )
 
-                    # HTML 파트 추가
-                    html_part = MIMEText(html_content, 'html', 'utf-8')
-                    msg.attach(html_part)
+                    logger.info(f"📤 Sending email to {recipient} with {len(events)} new events...")
 
-                    # SMTP 연결 및 발송
-                    with smtplib.SMTP(self.smtp_host, self.smtp_port) as server:
-                        server.starttls()  # TLS 시작
-                        server.login(self.smtp_user, self.smtp_password)
-                        server.send_message(msg)
+                    response = sg.send(message)
 
-                    logger.info(f"Email sent successfully to {recipient}")
+                    if response.status_code >= 200 and response.status_code < 300:
+                        logger.info(f"✅ Email sent successfully to {recipient} (Status: {response.status_code})")
+                    else:
+                        logger.error(f"❌ SendGrid returned status {response.status_code}")
+                        logger.error(f"Response body: {response.body}")
+                        return False
 
             return True
 
         except Exception as e:
-            logger.error(f"Failed to send daily news summary: {str(e)}")
+            logger.error(f"❌ Failed to send daily news summary via SendGrid")
+            logger.error(f"Error type: {type(e).__name__}")
+            logger.error(f"Error message: {str(e)}")
+            import traceback
+            logger.error(f"Traceback: {traceback.format_exc()}")
             return False
 
 

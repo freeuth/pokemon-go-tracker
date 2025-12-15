@@ -1,11 +1,9 @@
 """
 Main entry point for the Pokemon GO Tracker backend
-Starts both the FastAPI server and the scheduler
+Starts the FastAPI server with scheduler via lifespan
 """
 import uvicorn
-import asyncio
 from app.main import app
-from app.scheduler import start_scheduler, stop_scheduler
 from app.core.config import settings
 import logging
 
@@ -14,13 +12,14 @@ logger = logging.getLogger(__name__)
 
 
 def main():
-    """Start the application with scheduler"""
-    # Start the scheduler
-    start_scheduler()
+    """
+    Start the application
+    스케줄러는 main.py의 lifespan에서 자동으로 시작됩니다.
+    """
     logger.info("🚀 Pokemon GO Tracker starting...")
 
     try:
-        # Start the FastAPI server
+        # Start the FastAPI server (scheduler는 lifespan에서 자동 시작)
         uvicorn.run(
             app,
             host=settings.API_HOST,
@@ -29,8 +28,6 @@ def main():
         )
     except KeyboardInterrupt:
         logger.info("Shutting down...")
-    finally:
-        stop_scheduler()
 
 
 if __name__ == "__main__":
