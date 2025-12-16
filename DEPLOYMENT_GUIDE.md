@@ -1,199 +1,123 @@
-# 배포 가이드 - Render.com + Vercel
+# Pokemon GO Tracker - 배포 가이드
 
-이 가이드는 Pokemon GO Tracker를 Render.com (백엔드)과 Vercel (프론트엔드)에 배포하는 방법을 설명합니다.
+## 현재 상황
 
-## 📦 배포 아키텍처
+현재 **백엔드만** Render에 배포되어 있습니다:
+- 백엔드 API: https://pokemon-go-tracker.onrender.com/
 
-- **프론트엔드**: Vercel (이미 배포됨 - https://pokemon-go-tracker.vercel.app)
-- **백엔드**: Render.com (무료 플랜)
-- **데이터베이스**: SQLite (Render 디스크에 저장)
+프론트엔드 Next.js 애플리케이션은 아직 배포되지 않았습니다.
 
----
+## 프론트엔드 배포하기 (Vercel 권장)
 
-## 🚀 1단계: Render.com 계정 생성
+### 1단계: Vercel 계정 생성 및 준비
 
-1. [Render.com](https://render.com) 접속
-2. **Sign Up** 클릭
-3. GitHub 계정으로 로그인
+1. [Vercel](https://vercel.com) 접속
+2. GitHub 계정으로 로그인
+3. "Add New Project" 클릭
 
----
+### 2단계: GitHub 저장소 연결
 
-## 🔧 2단계: 백엔드 배포
+1. Vercel에서 `pokemon-go-tracker` 저장소 선택
+2. "Import" 클릭
 
-### A. Render에서 Web Service 생성
+### 3단계: 프로젝트 설정
 
-1. Render 대시보드에서 **New +** 클릭
-2. **Web Service** 선택
-3. GitHub 저장소 연결:
-   - Repository: `freeuth/pokemon-go-tracker` 선택
-   - **Connect** 클릭
+**Framework Preset**: Next.js (자동 감지됨)
 
-### B. 서비스 설정
+**Root Directory**: `frontend`
+- "Edit" 버튼 클릭
+- `frontend` 입력
 
-다음 정보를 입력하세요:
+**Build Settings**:
+- Build Command: `npm run build` (자동 설정됨)
+- Output Directory: `.next` (자동 설정됨)
+- Install Command: `npm install` (자동 설정됨)
 
-**기본 설정:**
-- **Name**: `pokemon-go-tracker-backend`
-- **Region**: `Oregon (US West)` (또는 가장 가까운 지역)
-- **Branch**: `main`
-- **Root Directory**: `backend`
-- **Runtime**: `Python 3`
-
-**빌드 & 실행 명령:**
-- **Build Command**:
-  ```bash
-  pip install -r requirements.txt
-  ```
-- **Start Command**:
-  ```bash
-  uvicorn app.main:app --host 0.0.0.0 --port $PORT
-  ```
-
-**인스턴스 타입:**
-- **Instance Type**: `Free` 선택
-
-### C. 환경 변수 설정
-
-**Environment Variables** 섹션에서 다음을 추가하세요:
+**Environment Variables**:
+다음 환경 변수를 추가하세요:
 
 ```
-MODE=production
-DATABASE_URL=sqlite:///./pokemon_go.db
-
-# Email Settings
-SMTP_HOST=smtp.gmail.com
-SMTP_PORT=587
-SMTP_USER=treehi1@gmail.com
-SMTP_PASSWORD=ezpftysfzozwdoag
-EMAIL_FROM=treehi1@gmail.com
-NOTIFICATION_EMAIL=treehi1@gmail.com
-
-# Frontend URL
-FRONTEND_URL=https://pokemon-go-tracker.vercel.app
-
-# Crawler Settings
-CRAWLER_INTERVAL_MINUTES=30
-POKEMONGO_NEWS_URL=https://pokemongolive.com/ko/post/
-
-# YouTube RSS Feeds
-YOUTUBE_RSS_FEEDS=https://www.youtube.com/feeds/videos.xml?channel_id=UCdr_Wan875nODI7QyAmxtPg,https://www.youtube.com/feeds/videos.xml?channel_id=UC_zHkjuptaH8SEc83KTFqog,https://www.youtube.com/feeds/videos.xml?channel_id=UCeTdRAJjiQ299P_p--0Op7g,https://www.youtube.com/feeds/videos.xml?channel_id=UCfoSf_Kr6WxhfDCoH1elk9Q,https://www.youtube.com/feeds/videos.xml?channel_id=UCyGyht0Dv0Knt7bUB-ZQEkQ,https://www.youtube.com/feeds/videos.xml?channel_id=UCNk_2WQ8kdo16wJD7XSvDmg,https://www.youtube.com/feeds/videos.xml?channel_id=UCIknZLG6_estRW_rHVYNbeA,https://www.youtube.com/feeds/videos.xml?channel_id=UCWNAsZwR-I219wzIKdTQ-Gg,https://www.youtube.com/feeds/videos.xml?channel_id=UCIqDCG3pWKWKviFytutCs8w,https://www.youtube.com/feeds/videos.xml?channel_id=UCMU4_bvUD-zmpFYX-f2ndAQ
-
-# CORS
-ALLOWED_ORIGINS=["https://pokemon-go-tracker.vercel.app", "http://localhost:3000"]
+NEXT_PUBLIC_API_URL=https://pokemon-go-tracker.onrender.com
 ```
 
-### D. 배포 시작
+### 4단계: 배포
 
-1. **Create Web Service** 클릭
-2. 배포가 시작되고 로그를 확인할 수 있습니다
-3. 배포 완료 후 URL을 확인하세요 (예: `https://pokemon-go-tracker-backend.onrender.com`)
+1. "Deploy" 버튼 클릭
+2. 3-5분 대기 (빌드 및 배포 진행)
+3. 배포 완료 후 Vercel URL 확인 (예: `https://pokemon-go-tracker.vercel.app`)
 
----
+### 5단계: 커스텀 도메인 (선택사항)
 
-## 🌐 3단계: Vercel 환경 변수 업데이트
+Vercel 대시보드에서:
+1. Settings → Domains
+2. 원하는 도메인 추가
+3. DNS 설정 (Vercel 가이드 참조)
 
-Render에서 백엔드 URL을 확인한 후:
+## 배포 후 확인사항
 
-1. [Vercel Dashboard](https://vercel.com/dashboard) 접속
-2. `pokemon-go-tracker` 프로젝트 선택
-3. **Settings** → **Environment Variables** 이동
-4. 새 환경 변수 추가:
-   - **Name**: `NEXT_PUBLIC_API_URL`
-   - **Value**: `https://pokemon-go-tracker-backend.onrender.com` (Render에서 제공한 실제 URL)
-   - **Environment**: `Production`, `Preview`, `Development` 모두 체크
-5. **Save** 클릭
-6. **Deployments** 탭으로 이동
-7. 가장 최근 배포에서 **...** 클릭 → **Redeploy** 선택
+프론트엔드가 정상적으로 배포되면:
 
----
+✅ **홈페이지**: 포켓몬 GO 뉴스 목록이 보여야 함
+✅ **IV 계산기**: 스크린샷 업로드 및 분석 가능
+✅ **도감**: 포켓몬 검색 및 정보 확인 가능
+✅ **배틀 영상**: YouTube 영상 목록이 보여야 함
 
-## ✅ 4단계: 배포 확인
+## 자동 배포 설정
 
-### 백엔드 확인
+Vercel은 GitHub와 자동 연동됩니다:
+- `main` 브랜치에 푸시 → 자동 배포
+- Pull Request 생성 → 프리뷰 배포 생성
 
-브라우저에서 백엔드 URL을 열어보세요:
-```
-https://pokemon-go-tracker-backend.onrender.com/
-```
+## 트러블슈팅
 
-다음과 같은 JSON 응답이 나와야 합니다:
-```json
-{
-  "message": "Pokemon GO Tracker API",
-  "version": "1.0.0",
-  "endpoints": {
-    "events": "/api/events",
-    "analysis": "/api/analysis",
-    "videos": "/api/videos",
-    "subscriptions": "/api/subscriptions",
-    "docs": "/docs"
-  }
-}
-```
+### 빌드 에러 발생 시
 
-### 프론트엔드 확인
+1. Vercel 대시보드 → Deployments → 실패한 배포 클릭
+2. Build Logs 확인
+3. 에러 메시지 복사하여 해결
 
-브라우저에서 프론트엔드를 열어보세요:
-```
-https://pokemon-go-tracker.vercel.app
-```
+### API 연결 안 될 때
 
-뉴스와 영상이 제대로 로드되는지 확인하세요!
+1. Environment Variables에 `NEXT_PUBLIC_API_URL`이 올바르게 설정되었는지 확인
+2. Vercel 대시보드 → Settings → Environment Variables
+3. 변경 후 "Redeploy" 필요
 
----
+### CORS 에러 발생 시
 
-## ⚠️ 중요 사항
+백엔드 CORS 설정에 Vercel URL 추가 필요:
+- `backend/app/main.py`의 `allow_origins` 리스트에 Vercel URL 추가
 
-### Render 무료 플랜 제약사항
+## 대안: Render에 프론트엔드도 배포
 
-- **스핀다운**: 15분 동안 요청이 없으면 서버가 중지됩니다
-- **재시작 시간**: 첫 요청 시 30초~1분 정도 소요될 수 있습니다
-- **월 750시간**: 무료 플랜은 월 750시간 실행 시간 제공
-- **SQLite 데이터**: Render 재시작 시 데이터가 유지됩니다 (디스크에 저장됨)
+Vercel 대신 Render에도 배포 가능:
 
-### 스케줄러 동작
+1. Render 대시보드 → "New Web Service"
+2. GitHub 저장소 연결
+3. 설정:
+   - Name: `pokemon-go-tracker-frontend`
+   - Root Directory: `frontend`
+   - Build Command: `npm install && npm run build`
+   - Start Command: `npm start`
+   - Environment Variables:
+     ```
+     NEXT_PUBLIC_API_URL=https://pokemon-go-tracker.onrender.com
+     ```
 
-- 매일 오전 10시(Asia/Seoul)에 뉴스 및 YouTube 영상 수집
-- Render 서버가 스핀다운 상태여도 첫 요청 시 자동으로 재시작됩니다
-- 하지만 스케줄러는 서버가 실행 중일 때만 작동합니다
+**단점**: Render는 Next.js 최적화가 Vercel보다 부족하며, 무료 플랜은 속도가 느립니다.
 
-### 데이터 지속성
+## 비용
 
-- SQLite 데이터베이스는 Render의 디스크에 저장됩니다
-- 무료 플랜의 경우 재배포 시 데이터가 초기화될 수 있습니다
-- 프로덕션에서는 PostgreSQL 사용을 권장합니다
+- **Vercel**: 무료 플랜으로 충분 (개인 프로젝트)
+- **Render**: 백엔드 무료 플랜 사용 중
 
----
+## 요약
 
-## 🔒 보안
+현재 https://pokemon-go-tracker.onrender.com/ 에서 JSON이 보이는 이유:
+→ **백엔드 API만 배포되어 있기 때문**
 
-- ✅ `.env` 파일은 `.gitignore`에 포함되어 GitHub에 업로드되지 않습니다
-- ✅ Gmail 앱 비밀번호는 Render 환경 변수에 안전하게 저장됩니다
-- ✅ CORS 설정으로 허용된 도메인만 API 접근 가능합니다
+해결 방법:
+→ **위 가이드대로 Vercel에 프론트엔드 배포**
 
----
-
-## 🐛 문제 해결
-
-### 백엔드 로그 확인
-Render Dashboard → 서비스 선택 → **Logs** 탭
-
-### 프론트엔드 로그 확인
-Vercel Dashboard → 프로젝트 선택 → **Deployments** → 배포 선택 → **View Function Logs**
-
-### CORS 오류
-- Render 환경 변수의 `ALLOWED_ORIGINS`에 Vercel URL이 포함되어 있는지 확인
-- 백엔드 로그에서 CORS 관련 에러 메시지 확인
-
-### 데이터가 로드되지 않음
-- 백엔드 URL이 올바른지 확인 (`/health` 엔드포인트 테스트)
-- Vercel 환경 변수 `NEXT_PUBLIC_API_URL`이 올바르게 설정되었는지 확인
-- 브라우저 개발자 도구(F12)의 Network 탭에서 API 요청 확인
-
----
-
-## 📚 추가 리소스
-
-- [Render 문서](https://render.com/docs)
-- [Vercel 문서](https://vercel.com/docs)
-- [FastAPI 배포 가이드](https://fastapi.tiangolo.com/deployment/)
+배포 후:
+- 프론트엔드: `https://pokemon-go-tracker.vercel.app` (예시)
+- 백엔드: `https://pokemon-go-tracker.onrender.com`
