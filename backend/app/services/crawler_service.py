@@ -58,6 +58,27 @@ class PokemonGOCrawler:
                             if not title or len(title) < 5:
                                 continue
 
+                            # URL slug에서 날짜 추출 (예: /ko/news/2024-12-event-name)
+                            # 형식: /ko/news/년도-월-나머지
+                            published_date = datetime.now()  # 기본값
+                            try:
+                                # URL 경로에서 날짜 부분 추출
+                                # 예: /ko/news/2024-12-community-day → 2024-12
+                                parts = href.split('/')
+                                if len(parts) >= 4:
+                                    slug = parts[3]  # "2024-12-community-day"
+                                    # 처음 두 부분이 년도-월 형식인지 확인
+                                    date_parts = slug.split('-')[:2]
+                                    if len(date_parts) == 2 and date_parts[0].isdigit() and date_parts[1].isdigit():
+                                        year = int(date_parts[0])
+                                        month = int(date_parts[1])
+                                        if 2020 <= year <= 2030 and 1 <= month <= 12:
+                                            # 해당 월의 1일로 설정
+                                            published_date = datetime(year, month, 1)
+                            except (ValueError, IndexError) as e:
+                                logger.debug(f"Could not parse date from URL {href}: {str(e)}")
+                                # 날짜 파싱 실패 시 현재 날짜 유지
+
                             # 썸네일 이미지 찾기
                             img_elem = link.find('img')
                             thumbnail_url = None
@@ -74,7 +95,7 @@ class PokemonGOCrawler:
                                 'title': title,
                                 'url': url,
                                 'summary': '',  # pokemongo.com은 요약을 제공하지 않음
-                                'published_date': datetime.now(),
+                                'published_date': published_date,
                                 'image_url': thumbnail_url,
                                 'category': '뉴스'
                             }
