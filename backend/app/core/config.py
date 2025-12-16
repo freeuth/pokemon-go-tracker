@@ -42,13 +42,13 @@ class Settings(BaseSettings):
     # YouTube RSS Feeds (comma-separated URLs)
     YOUTUBE_RSS_FEEDS: str = ""
 
-    # CORS
-    ALLOWED_ORIGINS: list = [
-        "http://localhost:3000",
-        "http://127.0.0.1:3000",
-        "https://pokemon-go-tracker.vercel.app"
-    ]
+    # CORS - comma-separated list of allowed origins
+    ALLOWED_ORIGINS_STR: str = "http://localhost:3000,http://127.0.0.1:3000,https://pokemon-go-tracker.vercel.app"
 
+    @property
+    def ALLOWED_ORIGINS(self) -> list:
+        """Parse comma-separated origins string into list"""
+        return [origin.strip() for origin in self.ALLOWED_ORIGINS_STR.split(",") if origin.strip()]
     class Config:
         env_file = ".env"
         case_sensitive = True
