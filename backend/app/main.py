@@ -55,7 +55,7 @@ app = FastAPI(
 app.add_middleware(
     CORSMiddleware,
     allow_origins=settings.ALLOWED_ORIGINS,
-    allow_origin_regex=r"https://.*\.vercel\.app",  # Allow all Vercel deployments
+    allow_origin_regex=r"https://.*\.vercel\.app|http://localhost:\d+|http://127\.0\.0\.1:\d+",  # Allow all Vercel deployments and localhost with any port
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
