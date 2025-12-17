@@ -27,8 +27,35 @@ async def lifespan(app: FastAPI):
     """
     # Startup
     logger.info("🚀 FastAPI application starting...")
-    logger.info("📅 Initializing scheduler...")
 
+    # Run database migrations
+    logger.info("📊 Running database migrations...")
+    try:
+        from sqlalchemy import text, inspect
+        from app.core.database import engine
+
+        with engine.connect() as conn:
+            inspector = inspect(engine)
+            if 'events' in inspector.get_table_names():
+                columns = [col['name'] for col in inspector.get_columns('events')]
+
+                if 'event_start_date' not in columns:
+                    logger.info("Adding event_start_date column...")
+                    conn.execute(text("ALTER TABLE events ADD COLUMN event_start_date TIMESTAMP WITH TIME ZONE"))
+                    conn.commit()
+                    logger.info("✅ event_start_date column added")
+
+                if 'event_end_date' not in columns:
+                    logger.info("Adding event_end_date column...")
+                    conn.execute(text("ALTER TABLE events ADD COLUMN event_end_date TIMESTAMP WITH TIME ZONE"))
+                    conn.commit()
+                    logger.info("✅ event_end_date column added")
+
+        logger.info("✅ Database migrations completed")
+    except Exception as e:
+        logger.warning(f"⚠️ Migration warning (may be safe to ignore): {str(e)}")
+
+    logger.info("📅 Initializing scheduler...")
     from app.scheduler import start_scheduler
     start_scheduler()
 
