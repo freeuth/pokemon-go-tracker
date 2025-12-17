@@ -58,26 +58,8 @@ class PokemonGOCrawler:
                             if not title or len(title) < 5:
                                 continue
 
-                            # URL slug에서 날짜 추출 (예: /ko/news/2024-12-event-name)
-                            # 형식: /ko/news/년도-월-나머지
-                            published_date = datetime.now()  # 기본값
-                            try:
-                                # URL 경로에서 날짜 부분 추출
-                                # 예: /ko/news/2024-12-community-day → 2024-12
-                                parts = href.split('/')
-                                if len(parts) >= 4:
-                                    slug = parts[3]  # "2024-12-community-day"
-                                    # 처음 두 부분이 년도-월 형식인지 확인
-                                    date_parts = slug.split('-')[:2]
-                                    if len(date_parts) == 2 and date_parts[0].isdigit() and date_parts[1].isdigit():
-                                        year = int(date_parts[0])
-                                        month = int(date_parts[1])
-                                        if 2020 <= year <= 2030 and 1 <= month <= 12:
-                                            # 해당 월의 1일로 설정
-                                            published_date = datetime(year, month, 1)
-                            except (ValueError, IndexError) as e:
-                                logger.debug(f"Could not parse date from URL {href}: {str(e)}")
-                                # 날짜 파싱 실패 시 현재 날짜 유지
+                            # URL과 제목에서 날짜 추출
+                            published_date = self._extract_date_from_url_and_title(href, title)
 
                             # 썸네일 이미지 찾기
                             img_elem = link.find('img')
@@ -119,6 +101,85 @@ class PokemonGOCrawler:
             logger.error(f"Failed to fetch events from pokemongo.com: {str(e)}")
             logger.error(f"Error traceback: {e.__class__.__name__}")
             return []
+
+    def _extract_date_from_url_and_title(self, url: str, title: str) -> datetime:
+        """
+        URL과 제목에서 날짜 정보를 추출
+
+        URL 패턴:
+        - /ko/news/event-name-2025 → 2025년
+        - /ko/news/communityday-january-2026 → 2026년 1월
+
+        제목 패턴:
+        - "2026년 1월 커뮤니티 데이" → 2026년 1월
+        - "12월 커뮤니티 데이" → 현재년도 12월
+        """
+        import re
+        from datetime import datetime
+
+        year = None
+        month = None
+
+        # 1. URL에서 연도 추출 (마지막 4자리 숫자)
+        url_year_match = re.search(r'-(\d{4})(?:\D|$)', url)
+        if url_year_match:
+            year_candidate = int(url_year_match.group(1))
+            if 2020 <= year_candidate <= 2030:
+                year = year_candidate
+
+        # 2. URL에서 월 이름 추출 (영어)
+        month_names = {
+            'january': 1, 'jan': 1,
+            'february': 2, 'feb': 2,
+            'march': 3, 'mar': 3,
+            'april': 4, 'apr': 4,
+            'may': 5,
+            'june': 6, 'jun': 6,
+            'july': 7, 'jul': 7,
+            'august': 8, 'aug': 8,
+            'september': 9, 'sep': 9,
+            'october': 10, 'oct': 10,
+            'november': 11, 'nov': 11,
+            'december': 12, 'dec': 12
+        }
+
+        url_lower = url.lower()
+        for month_name, month_num in month_names.items():
+            if month_name in url_lower:
+                month = month_num
+                break
+
+        # 3. 제목에서 연도와 월 추출 (한국어)
+        # "2026년 1월" 또는 "2026년"
+        title_year_month = re.search(r'(\d{4})년\s*(\d{1,2})월', title)
+        if title_year_month:
+            year = int(title_year_month.group(1))
+            month = int(title_year_month.group(2))
+        elif re.search(r'(\d{4})년', title):
+            year_match = re.search(r'(\d{4})년', title)
+            year = int(year_match.group(1))
+
+        # 4. 제목에서 월만 추출 (연도 없이)
+        if not month:
+            month_only = re.search(r'(\d{1,2})월', title)
+            if month_only:
+                month = int(month_only.group(1))
+
+        # 5. 날짜 생성
+        if year and month:
+            try:
+                return datetime(year, month, 1)
+            except ValueError:
+                pass
+
+        if year:
+            try:
+                return datetime(year, 1, 1)  # 연도만 있으면 1월 1일로
+            except ValueError:
+                pass
+
+        # 날짜를 추출할 수 없으면 현재 날짜 반환
+        return datetime.now()
 
     def _validate_event(self, event: Dict) -> bool:
         """이벤트 데이터 유효성 검증"""
