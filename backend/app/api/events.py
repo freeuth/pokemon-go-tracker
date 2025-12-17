@@ -19,6 +19,8 @@ class EventResponse(BaseModel):
     url: str
     summary: Optional[str]
     published_date: Optional[datetime]
+    event_start_date: Optional[datetime]
+    event_end_date: Optional[datetime]
     image_url: Optional[str]
     category: Optional[str]
     created_at: datetime
@@ -80,6 +82,8 @@ async def crawl_and_notify(db: Session):
                     url=event_data['url'],
                     summary=event_data.get('summary'),
                     published_date=event_data.get('published_date'),
+                    event_start_date=event_data.get('event_start_date'),
+                    event_end_date=event_data.get('event_end_date'),
                     image_url=event_data.get('image_url'),
                     category=event_data.get('category'),
                     is_notified=False
