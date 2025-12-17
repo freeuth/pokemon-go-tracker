@@ -124,6 +124,8 @@ async def manual_crawl_now():
                     url=event_data['url'],
                     summary=event_data.get('summary'),
                     published_date=event_data.get('published_date'),
+                    event_start_date=event_data.get('event_start_date'),
+                    event_end_date=event_data.get('event_end_date'),
                     image_url=event_data.get('image_url'),
                     category=event_data.get('category', '뉴스')
                 )

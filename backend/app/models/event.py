@@ -12,6 +12,8 @@ class Event(Base):
     summary = Column(Text)
     content = Column(Text)
     published_date = Column(DateTime(timezone=True))
+    event_start_date = Column(DateTime(timezone=True))  # 이벤트 시작 날짜/시간
+    event_end_date = Column(DateTime(timezone=True))    # 이벤트 종료 날짜/시간
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     updated_at = Column(DateTime(timezone=True), onupdate=func.now())
     image_url = Column(String(1000))

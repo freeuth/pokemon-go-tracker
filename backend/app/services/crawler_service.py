@@ -73,11 +73,16 @@ class PokemonGOCrawler:
                                     else:
                                         thumbnail_url = f'https://pokemongo.com{thumbnail_url}'
 
+                            # 개별 기사 페이지에서 이벤트 날짜 추출
+                            event_start, event_end = await self._fetch_event_dates(client, url)
+
                             event = {
                                 'title': title,
                                 'url': url,
                                 'summary': '',  # pokemongo.com은 요약을 제공하지 않음
                                 'published_date': published_date,
+                                'event_start_date': event_start,
+                                'event_end_date': event_end,
                                 'image_url': thumbnail_url,
                                 'category': '뉴스'
                             }
@@ -101,6 +106,73 @@ class PokemonGOCrawler:
             logger.error(f"Failed to fetch events from pokemongo.com: {str(e)}")
             logger.error(f"Error traceback: {e.__class__.__name__}")
             return []
+
+    async def _fetch_event_dates(self, client: httpx.AsyncClient, url: str) -> tuple[Optional[datetime], Optional[datetime]]:
+        """
+        개별 기사 페이지에서 이벤트 시작/종료 날짜 추출
+
+        Returns:
+            (event_start_date, event_end_date) tuple
+        """
+        try:
+            response = await client.get(url, headers=self.headers)
+            response.raise_for_status()
+
+            soup = BeautifulSoup(response.text, 'html.parser')
+            text_content = soup.get_text()
+
+            # 이벤트 날짜 추출
+            event_start, event_end = self._extract_event_dates_from_text(text_content)
+
+            return event_start, event_end
+
+        except Exception as e:
+            logger.warning(f"Failed to fetch event dates from {url}: {str(e)}")
+            return None, None
+
+    def _extract_event_dates_from_text(self, text: str) -> tuple[Optional[datetime], Optional[datetime]]:
+        """
+        텍스트에서 이벤트 시작/종료 날짜 추출
+
+        패턴:
+        - "한국시간 2026년 1월 18일 14:00부터 17:00까지"
+        - "2025년 12월 31일 10:00부터 2026년 1월 4일 20:00까지"
+        """
+        import re
+        from datetime import datetime
+
+        # 패턴 1: 같은 날 시작/종료 (한국시간 YYYY년 MM월 DD일 HH:MM부터 HH:MM까지)
+        pattern1 = r'한국시간\s*(\d{4})년\s*(\d{1,2})월\s*(\d{1,2})일\s*(\d{1,2}):(\d{2})부터\s*(\d{1,2}):(\d{2})까지'
+        match1 = re.search(pattern1, text)
+
+        if match1:
+            year, month, day, start_hour, start_min, end_hour, end_min = match1.groups()
+            event_start = datetime(int(year), int(month), int(day), int(start_hour), int(start_min))
+            event_end = datetime(int(year), int(month), int(day), int(end_hour), int(end_min))
+            return event_start, event_end
+
+        # 패턴 2: 다른 날 시작/종료 (YYYY년 MM월 DD일 HH:MM부터 YYYY년 MM월 DD일 HH:MM까지)
+        pattern2 = r'(\d{4})년\s*(\d{1,2})월\s*(\d{1,2})일\s*(\d{1,2}):(\d{2})부터\s*(\d{4})년\s*(\d{1,2})월\s*(\d{1,2})일\s*(\d{1,2}):(\d{2})까지'
+        match2 = re.search(pattern2, text)
+
+        if match2:
+            start_year, start_month, start_day, start_hour, start_min, end_year, end_month, end_day, end_hour, end_min = match2.groups()
+            event_start = datetime(int(start_year), int(start_month), int(start_day), int(start_hour), int(start_min))
+            event_end = datetime(int(end_year), int(end_month), int(end_day), int(end_hour), int(end_min))
+            return event_start, event_end
+
+        # 패턴 3: 간단한 날짜 범위 (MM월 DD일 ~ MM월 DD일)
+        pattern3 = r'(\d{1,2})월\s*(\d{1,2})일.*?(\d{1,2})월\s*(\d{1,2})일'
+        match3 = re.search(pattern3, text)
+
+        if match3:
+            start_month, start_day, end_month, end_day = match3.groups()
+            current_year = datetime.now().year
+            event_start = datetime(current_year, int(start_month), int(start_day))
+            event_end = datetime(current_year, int(end_month), int(end_day))
+            return event_start, event_end
+
+        return None, None
 
     def _extract_date_from_url_and_title(self, url: str, title: str) -> datetime:
         """

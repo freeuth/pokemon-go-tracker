@@ -15,6 +15,8 @@ export interface Event {
   url: string;
   summary: string | null;
   published_date: string | null;
+  event_start_date: string | null;  // 이벤트 시작 날짜/시간
+  event_end_date: string | null;    // 이벤트 종료 날짜/시간
   image_url: string | null;
   category: string | null;
   created_at: string;
