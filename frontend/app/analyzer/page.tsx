@@ -64,6 +64,12 @@ export default function Analyzer() {
                 이벤트 뉴스
               </Link>
               <Link
+                href="/pokedex"
+                className="px-4 py-2 rounded-lg bg-gradient-to-r from-yellow-400 to-yellow-600 text-white font-semibold hover:from-yellow-500 hover:to-yellow-700 transition"
+              >
+                포켓몬 도감
+              </Link>
+              <Link
                 href="/analyzer"
                 className="px-4 py-2 rounded-lg bg-white text-pokemon-blue font-semibold hover:bg-blue-50 transition"
               >
